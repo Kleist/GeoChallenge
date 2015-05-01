@@ -4,4 +4,3 @@ define(['require', 'angular', 'domReady', 'app'], function(require, ng, domReady
     ng.bootstrap(document, ['app']);
   });
 });
-  
