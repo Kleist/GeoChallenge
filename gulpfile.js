@@ -6,10 +6,10 @@ var webserver = require('gulp-webserver');
 var exit = require('gulp-exit');
 
 gulp.task('protractor', function() {
-return gulp.src(["./test/e2e/*.js"])
+return gulp.src(["./test-e2e/*.js"])
   .pipe(protractor({
-    configFile: "test/protractor.config.js",
-    args: ['--baseUrl', 'http://127.0.0.1:9000']
+    configFile: "test-e2e/protractor.config.js",
+    args: ['--baseUrl', 'http://localhost:9000']
   })).on('error', function(e) { throw e }).pipe(exit());
 });
 

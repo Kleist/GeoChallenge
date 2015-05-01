@@ -8,8 +8,7 @@ GPS based scout challenge
 * User - Receive invitations and compete in challenges
 
 # Tech backlog
-* Karma/Jasmine unit tests
-* Protractor e2e tests
+* Tech - Karma/Jasmine unit tests
 
 # Backlog
 * User/Admin - Register user
@@ -23,3 +22,7 @@ GPS based scout challenge
 * User - Start challenge by going to start point after joining
 * User - Complete challenge by going to end point after start point joining
 * Admin - Add intermediate point to challenge
+
+# Completed
+## (2015/05/01)
+* Tech - Protractor e2e tests from gulp 
