@@ -5,14 +5,14 @@ define(['app', "uiRouter"], function (app) {
     $urlRouterProvider.otherwise('/state1');
     $stateProvider.state('state1', {
       url: '/state1',
-      template: '{{state}}',
+      templateUrl: 'main.html',
       controller: function ($scope) {
         $scope.state = "state is 1";
       }
     })
     .state('state2', {
       url: '/state2',
-      template: '{{state}}',
+      templateUrl: 'main.html',
       controller: function ($scope) {
         $scope.state = "state is 2";
       }
