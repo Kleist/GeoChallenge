@@ -11,7 +11,7 @@ return gulp.src(["./test-e2e/*.js"])
     configFile: "test-e2e/protractor.config.js",
     args: ['--baseUrl', 'http://localhost:9000']
   })).on('error', function(e) { throw e })
-  .pipe(exit());
+  .pipe(exit()); // Exit to force webserver-shutdown
 });
 
 gulp.task('e2e-test', function() {
@@ -20,7 +20,6 @@ gulp.task('e2e-test', function() {
     'protractor'
     );
 });
-
 
 gulp.task('webserver', function() {
   gulp.src('./frontend')
