@@ -3,7 +3,7 @@ sudo: false # To enable container-based infrastructure
 cache:
   directories:
     - node_modules
-    - bower_components
+    - frontend/lib
 
 node_js:
   - "0.10"
