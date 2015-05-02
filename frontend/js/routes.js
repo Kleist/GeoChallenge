@@ -16,6 +16,11 @@ define(['app', "uiRouter"], function (app) {
       controller: function ($scope) {
         $scope.state = "state is 2";
       }
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'login.html',
+      controller: 'LoginCtrl'
     });
   });
 });

@@ -5,6 +5,7 @@ require.config({
     'domReady': '../lib/requirejs-domready/domReady',
     'angular': '../lib/angular/angular.min',
     'uiRouter': '../lib/angular-ui-router/release/angular-ui-router.min',
+    'satellizer': '../lib/satellizer/satellizer.min',
   },
   shim: {
     'angular': {
