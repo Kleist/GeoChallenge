@@ -25,5 +25,8 @@
     "protractor": "^2.0.0",
     "requirejs": "^2.1.17",
     "run-sequence": "^1.1.0"
-  }
+  },
+  "repository": {
+    "type": "git"
+  },
 }
