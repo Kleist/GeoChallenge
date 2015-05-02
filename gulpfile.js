@@ -25,7 +25,7 @@ gulp.task('protractor', function() {
 return gulp.src(["./test-e2e/*.js"])
   .pipe(protractor({
     configFile: "test-e2e/protractor.config.js",
-    args: ['--baseUrl', 'http://localhost:9000']
+    args: ['--baseUrl', 'http://localhost:3000']
   })).on('error', function(e) { throw e })
   .pipe(exit()); // Exit to force webserver-shutdown
 });
@@ -38,11 +38,8 @@ gulp.task('e2e-test', function() {
 });
 
 gulp.task('webserver', function() {
-  gulp.src('./frontend')
-    .pipe(webserver({
-      livereload: true,
-      port: 9000,
-    }));
+  var app = require('./server/app');
+  app.listen(3000);
 });
 
 gulp.task('default', ['tdd']);

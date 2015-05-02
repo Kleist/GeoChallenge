@@ -2,7 +2,7 @@ define(['app', "uiRouter"], function (app) {
   'use strict';
   return app.config(function ($stateProvider, $urlRouterProvider) {
     console.log('routes defined');
-    $urlRouterProvider.otherwise('/state1');
+    $urlRouterProvider.otherwise('/login');
     $stateProvider.state('state1', {
       url: '/state1',
       templateUrl: 'main.html',

@@ -13,6 +13,9 @@ require.config({
     },
     'uiRouter': {
       deps: ['angular'],
+    },
+    'satellizer': {
+      deps: ['angular'],
     }
   },
   deps: ['bootstrap'],
