@@ -1,9 +1,25 @@
+/// <reference path="typings/node/node.d.ts"/>
 var gulp = require('gulp');
 var protractor = require("gulp-protractor").protractor;
 var browserSync = require('browser-sync');
 var runSequence = require('run-sequence');
 var webserver = require('gulp-webserver');
 var exit = require('gulp-exit');
+var karma = require('karma').server;
+
+gulp.task('test', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+gulp.task('tdd', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['PhantomJS'],
+  }, done);
+});
 
 gulp.task('protractor', function() {
 return gulp.src(["./test-e2e/*.js"])
@@ -28,3 +44,5 @@ gulp.task('webserver', function() {
       port: 9000,
     }));
 });
+
+gulp.task('default', ['tdd']);
