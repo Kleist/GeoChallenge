@@ -1,4 +1,10 @@
 language: node_js
+sudo: false # To enable container-based infrastructure
+cache:
+  directories:
+    - node_modules
+    - bower_components
+
 node_js:
   - "0.10"
 
