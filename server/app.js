@@ -69,6 +69,7 @@ function createToken(user) {
  */
 app.get('/api/me', ensureAuthenticated, function(req, res) {
   User.findById(req.user, function(err, user) {
+    console.log(err);
     res.send(user);
   });
 });

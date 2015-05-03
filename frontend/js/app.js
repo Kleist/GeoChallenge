@@ -14,17 +14,38 @@ define(["angular", "uiRouter", 'satellizer'], function (angular) {
       clientId: '484226408392517'
     });
   });
-  
-  app.controller('LoginCtrl', function($scope, $auth) {
-    $scope.authenticate = function(provider) {
-      $auth.authenticate(provider);
+
+  app.controller('LoginCtrl', function ($scope, $auth, $http) {
+    $scope.myInfo = {};
+    $scope.authenticate = function (provider) {
+      $auth.authenticate(provider).then(function () {
+        $http.get('/api/me').success(function (data) {
+          console.log('/api/me success', data);
+        })
+          .error(function (data) {
+          console.log('/api/me error: ', data);
+        });
+        console.log({
+          content: 'You have successfully logged in',
+          animation: 'fadeZoomFadeDown',
+          type: 'material',
+          duration: 3
+        });
+      }).catch(function (response) {
+        console.log({
+          content: response.data ? response.data.message : response,
+          animation: 'fadeZoomFadeDown',
+          type: 'material',
+          duration: 3
+        });
+      });
     };
-    
-    $scope.logout = function() {
+
+    $scope.logout = function () {
       $auth.logout();
     };
-    
-    $scope.isAuthenticated = function() {
+
+    $scope.isAuthenticated = function () {
       return $auth.isAuthenticated();
     };
   });
