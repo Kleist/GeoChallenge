@@ -21,17 +21,32 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var frontendDir = __dirname + '/../frontend';
 console.log('frontentDir: ' + frontendDir);
 app.use('/',express.static(frontendDir));
-//mongoose.connect('mongodb://localhost/geoChallenge', function(err) {
-//	if (err) {
-//		console.log ('Connection error', err);		
-//	} 
-//	else {
-//		console.log ('Connection successful');
-//	}
-//});
+
+mongoose.connect(config.MONGO_URI);
+mongoose.connection.on('error', function() {
+  console.log ('Connection error, make sure MongoDB is running');		
+});
 
 
 app.use('/users', users);
+
+/*
+ |--------------------------------------------------------------------------
+ | Login Required Middleware
+ |--------------------------------------------------------------------------
+ */
+function ensureAuthenticated(req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+  }
+  var token = req.headers.authorization.split(' ')[1];
+  var payload = jwt.decode(token, config.TOKEN_SECRET);
+  if (payload.exp <= moment().unix()) {
+    return res.status(401).send({ message: 'Token has expired' });
+  }
+  req.user = payload.sub;
+  next();
+}
 
 /*
  |--------------------------------------------------------------------------
@@ -47,6 +62,40 @@ function createToken(user) {
   return jwt.encode(payload, config.TOKEN_SECRET);
 }
 
+/*
+ |--------------------------------------------------------------------------
+ | GET /api/me
+ |--------------------------------------------------------------------------
+ */
+app.get('/api/me', ensureAuthenticated, function(req, res) {
+  User.findById(req.user, function(err, user) {
+    res.send(user);
+  });
+});
+
+/*
+ |--------------------------------------------------------------------------
+ | PUT /api/me
+ |--------------------------------------------------------------------------
+ */
+app.put('/api/me', ensureAuthenticated, function(req, res) {
+  User.findById(req.user, function(err, user) {
+    if (!user) {
+      return res.status(400).send({ message: 'User not found' });
+    }
+    user.displayName = req.body.displayName || user.displayName;
+    user.email = req.body.email || user.email;
+    user.save(function(err) {
+      res.status(200).end();
+    });
+  });
+});
+
+/*
+ |--------------------------------------------------------------------------
+ | Login with Facebook
+ |--------------------------------------------------------------------------
+ */
 app.post('/auth/facebook', function(req, res) {
   console.log('hit facebook auth');
   var accessTokenUrl = 'https://graph.facebook.com/v2.3/oauth/access_token';

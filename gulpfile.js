@@ -32,12 +32,12 @@ return gulp.src(["./test-e2e/*.js"])
 
 gulp.task('e2e-test', function() {
   runSequence(
-    'webserver',
+    'serve',
     'protractor'
     );
 });
 
-gulp.task('webserver', function() {
+gulp.task('serve', function() {
   var app = require('./server/app');
   app.listen(3000);
 });

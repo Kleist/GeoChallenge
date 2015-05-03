@@ -18,7 +18,15 @@ define(["angular", "uiRouter", 'satellizer'], function (angular) {
   app.controller('LoginCtrl', function($scope, $auth) {
     $scope.authenticate = function(provider) {
       $auth.authenticate(provider);
-    }
+    };
+    
+    $scope.logout = function() {
+      $auth.logout();
+    };
+    
+    $scope.isAuthenticated = function() {
+      return $auth.isAuthenticated();
+    };
   });
 
   return app;
