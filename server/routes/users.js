@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var User = require('../models/User.js');
 
 /* GET /todos listing. */
-router.get('/', function(req, res, next) {
+router.get('/users', function(req, res, next) {
   User.find(function (err, users) {
     if (err) return next(err);
     res.json(users);

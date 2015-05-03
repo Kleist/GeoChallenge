@@ -1,3 +1,4 @@
+
 describe('GeoChallenge', function () {
   beforeEach(function () {
     browser.get(browser.baseUrl);

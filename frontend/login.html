@@ -1,2 +1,8 @@
-<button id="facebook-login" ng-click="authenticate('facebook')" ng-hide="isAuthenticated()">Sign in with Facebook</button>
-<button id="facebook-logout" ng-click="logout()" ng-show="isAuthenticated()">Log out</button>
+<div ng-hide="isAuthenticated()">
+	<input ng-model="username" />
+	<input ng-model="password" />
+	<button ng-click="login()">Log in</button>
+</div>
+<div ng-show="isAuthenticated()">
+	<button ng-click="logout()">Log out</button>
+</div>

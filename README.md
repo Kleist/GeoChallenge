@@ -10,8 +10,7 @@ GPS based scout challenge
 # Tech backlog
 
 # Backlog
-* User/Admin - Register user
-* User/Admin - Log in with Facebook
+* Admin - List users
 * User/Admin - Invite other users
 * Admin - Create challenge
 * Admin - Set challenge start point by coordinate
@@ -23,6 +22,13 @@ GPS based scout challenge
 * Admin - Add intermediate point to challenge
 
 # Completed
-## (2015/05/01)
+## 2015/05/01
 * Tech - Protractor e2e tests from gulp 
 * Tech - Karma/Jasmine unit tests
+## 2015/05/03
+* User/Admin - Register user
+* User/Admin - Log in with Facebook
+
+# Web service definition
+* GET /user - get list of users
+* POST /user - create new user

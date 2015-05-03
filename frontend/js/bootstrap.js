@@ -1,8 +1,7 @@
 define(['angular', 'domReady', 'app', 'routes'], function(ng, domReady) {
-  console.log('bootstrap defined');
-    'use strict';
+  'use strict';
+  console.log('bootstrap.js loaded');
   domReady(function(document) {
-    console.log('domReady');
     ng.bootstrap(document, ['app']);
   });
 });
