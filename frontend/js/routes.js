@@ -3,18 +3,25 @@ define(['app', "uiRouter"], function (app) {
   return app.config(function ($stateProvider, $urlRouterProvider) {
     console.log('routes defined');
     $urlRouterProvider.otherwise('/login');
-    $stateProvider.state('state1', {
-      url: '/state1',
-      templateUrl: 'main.html',
-      controller: function ($scope) {
-        $scope.state = "state is 1";
-      }
-    })
-    .state('state2', {
-      url: '/state2',
-      templateUrl: 'main.html',
-      controller: function ($scope) {
-        $scope.state = "state is 2";
+    $stateProvider.state('profile', {
+      url: '/profile',
+      templateUrl: 'profile.html',
+      controllerAs: 'vm',
+      controller: function ($http, $state) {
+        this.name = "";
+        this.picture = "";
+        this.loaded = false;
+        $http.get('/api/me')
+        .success(function(data) {
+          this.name = data.displayName;
+          this.picture = data.picture;
+          this.loaded = true;
+        }.bind(this))
+        .error(function(data) {
+          console.log(data);
+          $state.go('login');
+        })
+
       }
     })
     .state('login', {
