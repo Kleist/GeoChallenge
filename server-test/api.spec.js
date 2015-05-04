@@ -80,6 +80,7 @@ describe("REST API", function () {
     request(baseUrl).get(postsApi + post._id)
       .expect(200)
       .end(function (err, res) {
+        expect(res.body.name).toEqual("new name");
       done();
     });
   });
