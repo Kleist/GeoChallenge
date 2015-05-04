@@ -6,7 +6,6 @@ var router = express.Router();
 
 router.get('/me', auth.ensure, function (req, res) {
   User.findById(req.user, function (err, user) {
-    console.log(err);
     res.send(user);
   });
 });
@@ -15,10 +14,16 @@ router.get('/', function (req, res) {
   res.json({ message: 'hooray! welcome to our api!' });
 });
 
+function postFromReqBody(body, post) {
+  if (!post) post = new Post();
+  post.name = body.name;
+  post.question = body.question;
+  post.answer = body.answer;
+  return post;
+}
+
 router.route('/posts').post(function (req, res) {
-  var post = new Post();
-  post.name = req.body.name;
-  console.log(post);
+  var post = postFromReqBody(req.body);
   post.save(function (err) {
     if (err) {
       res.send(err);
@@ -35,7 +40,6 @@ router.route('/posts').post(function (req, res) {
     if (err) {
       res.send(err);
     } else {
-      console.log(posts);
       res.json(posts);
     }
   });
@@ -55,7 +59,7 @@ router.route('/posts/:post_id').get(function (req, res) {
     if (err) {
       res.send(err);
     }
-    post.name = req.body.name;
+    post = postFromReqBody(req.body, post);
     post.save(function (err) {
       if (err) {
         res.send(err);
@@ -63,7 +67,7 @@ router.route('/posts/:post_id').get(function (req, res) {
       else {
         res.json({ message: 'Post updated' });
       }
-    })
+    });
   });
 
 }).delete(function (req, res) {

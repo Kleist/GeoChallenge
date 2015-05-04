@@ -7,37 +7,45 @@ var webserver = require('gulp-webserver');
 var exit = require('gulp-exit');
 var karma = require('karma').server;
 
-gulp.task('test', function(done) {
+gulp.task('test', ['unittest', 'server-test', 'protractor']);
+
+gulp.task('unittest', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done);
 });
 
-gulp.task('tdd', function(done) {
+gulp.task('tdd', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     browsers: ['PhantomJS'],
   }, done);
 });
 
-gulp.task('protractor', function() {
-return gulp.src(["./test-e2e/*.js"])
-  .pipe(protractor({
+gulp.task('protractor', function () {
+  return gulp.src(["./test-e2e/*.js"])
+    .pipe(protractor({
     configFile: "test-e2e/protractor.config.js",
     args: ['--baseUrl', 'http://localhost:3000']
-  })).on('error', function(e) { throw e })
-  .pipe(exit()); // Exit to force webserver-shutdown
+  })).on('error', function (e) { throw e })
+    .pipe(exit()); // Exit to force webserver-shutdown
 });
 
-gulp.task('e2e-test', function() {
+gulp.task('e2e-test', function () {
   runSequence(
     'serve',
     'protractor'
     );
 });
 
-gulp.task('serve', function() {
+gulp.task('server-test', function () {
+  var jasmine = require('gulp-jasmine');
+  return gulp.src('server-test/*.spec.js')
+    .pipe(jasmine());
+});
+
+gulp.task('serve', function () {
   var app = require('./server/app');
   app.listen(3000);
 });
