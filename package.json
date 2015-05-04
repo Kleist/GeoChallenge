@@ -4,7 +4,7 @@
   "description": "Work in progress - see backlog for current ideas",
   "main": "server/app.js",
   "scripts": {
-    "test": "gulp test",
+    "test": "gulp unittest",
     "start": "node server/app.js"
   },
   "author": "",
